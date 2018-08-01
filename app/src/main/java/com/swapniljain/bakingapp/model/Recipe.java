@@ -12,27 +12,27 @@ public class Recipe implements Parcelable {
 
     // Private members.
 
-    @SerializedName("recipeId")
+    @SerializedName("id")
     @Expose
     private Integer recipeId;
 
-    @SerializedName("recipeName")
+    @SerializedName("name")
     @Expose
     private String recipeName;
 
-    @SerializedName("recipeIngredients")
+    @SerializedName("ingredients")
     @Expose
     private List<Ingredient> recipeIngredients = null;
 
-    @SerializedName("recipeSteps")
+    @SerializedName("steps")
     @Expose
     private List<Step> recipeSteps = null;
 
-    @SerializedName("noOfServings")
+    @SerializedName("servings")
     @Expose
     private Integer noOfServings;
 
-    @SerializedName("recipeImage")
+    @SerializedName("image")
     @Expose
     private String recipeImage;
 
@@ -128,5 +128,10 @@ public class Recipe implements Parcelable {
         public Recipe[] newArray(int size) {
             return new Recipe[size];
         }
+    };
+
+    @Override
+    public String toString() {
+        return this.recipeId + ": " + this.recipeName + ", " + this.recipeImage + ".";
     }
 }

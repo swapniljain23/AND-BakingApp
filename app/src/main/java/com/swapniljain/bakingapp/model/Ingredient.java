@@ -79,6 +79,6 @@ public class Ingredient implements Parcelable {
         public Ingredient[] newArray(int size) {
             return new Ingredient[size];
         }
-    }
+    };
 }
 

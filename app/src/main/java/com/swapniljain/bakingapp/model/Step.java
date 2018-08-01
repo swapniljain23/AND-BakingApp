@@ -90,5 +90,5 @@ public class Step implements Parcelable {
         public Step[] newArray(int size) {
             return new Step[size];
         }
-    }
+    };
 }
