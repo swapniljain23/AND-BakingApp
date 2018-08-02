@@ -1,5 +1,6 @@
 package com.swapniljain.bakingapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
@@ -105,6 +106,12 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Rec
     @Override
     public void onListItemClick(int clickedItemPosition) {
         // TODO.
+        Log.d("RECIPE", "onListItemClick");
 
+        Recipe clickedRecipe = mRecipeList.get(clickedItemPosition);
+
+        Intent recipeDetailIntent = new Intent(MainActivity.this, RecipeDetailActivity.class);
+        recipeDetailIntent.putExtra(RecipeDetailActivity.RECIPE_EXTRA, clickedRecipe);
+        startActivity(recipeDetailIntent);
     }
 }

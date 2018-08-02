@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -38,6 +40,7 @@ public class Recipe implements Parcelable {
 
 
     // Getters, Setters.
+
     public Integer getRecipeId() {
         return recipeId;
     }
@@ -84,6 +87,17 @@ public class Recipe implements Parcelable {
 
     public void setRecipeImage(String recipeImage) {
         this.recipeImage = recipeImage;
+    }
+
+    public ArrayList<String> getShortDescriptionsFromSteps (){
+        Log.d("Recipe", "getShortDescriptionsFromSteps");
+        ArrayList<String> resultList = new ArrayList<>();
+        resultList.add("Recipe Ingredients");
+        for (int i = 0; i < recipeSteps.size(); i++){
+            resultList.add(recipeSteps.get(i).getShortDescription());
+        }
+        Log.d("Recipe", "ShortDesc: " + resultList);
+        return resultList;
     }
 
     // Parcelable interface methods.
