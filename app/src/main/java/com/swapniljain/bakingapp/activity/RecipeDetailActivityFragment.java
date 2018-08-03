@@ -28,7 +28,8 @@ public class RecipeDetailActivityFragment extends Fragment implements RecipeShor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             mRecipeShortDescList = getArguments().getStringArrayList(RECIPE_SHORT_DESC_LIST_EXTRA);

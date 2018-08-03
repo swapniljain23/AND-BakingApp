@@ -27,8 +27,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         mFragmentManager = getSupportFragmentManager();
 
@@ -37,9 +37,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
             if(intent == null) {
                 // Handle error.
             }
-            Log.d("AllOk", "AllOk");
+
             mRecipe = intent.getParcelableExtra(RECIPE_EXTRA);
-            Log.d("StillOk","StillOk");
             Bundle bundle = new Bundle();
             Log.d("RecipeDetailActivity", "ShortDesc: " + mRecipe.getShortDescriptionsFromSteps());
             bundle.putStringArrayList(RecipeDetailActivityFragment.RECIPE_SHORT_DESC_LIST_EXTRA, mRecipe.getShortDescriptionsFromSteps());
