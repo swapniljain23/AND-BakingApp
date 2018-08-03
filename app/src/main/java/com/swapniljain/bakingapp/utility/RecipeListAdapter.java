@@ -14,12 +14,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
+public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeViewHolder> {
 
     final private List<Recipe> mRecipeList;
     private static RecipeClickListener mOnClickListener;
 
-    public RecipeAdapter(List<Recipe> recipes, RecipeClickListener onClickListener) {
+    public RecipeListAdapter(List<Recipe> recipes, RecipeClickListener onClickListener) {
         mRecipeList = recipes;
         mOnClickListener = onClickListener;
     }
@@ -33,7 +33,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         boolean shouldAttachToParentImmediately = false;
 
         View view = inflater.inflate(layoutIdForRecipeItem, parent, shouldAttachToParentImmediately);
-        RecipeAdapter.RecipeViewHolder viewHolder = new RecipeAdapter.RecipeViewHolder(view);
+        RecipeListAdapter.RecipeViewHolder viewHolder = new RecipeListAdapter.RecipeViewHolder(view);
 
         return viewHolder;
     }

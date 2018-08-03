@@ -2,15 +2,11 @@ package com.swapniljain.bakingapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -18,7 +14,7 @@ import com.swapniljain.bakingapp.R;
 import com.swapniljain.bakingapp.model.Recipe;
 import com.swapniljain.bakingapp.network.RecipeClient;
 import com.swapniljain.bakingapp.network.RetrofitClient;
-import com.swapniljain.bakingapp.utility.RecipeAdapter;
+import com.swapniljain.bakingapp.utility.RecipeListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements RecipeAdapter.RecipeClickListener {
+public class MainActivity extends AppCompatActivity implements RecipeListAdapter.RecipeClickListener {
 
     public static String RECIPE_LIST_EXTRA = "recipe_list_extra";
     private List<Recipe> mRecipeList = new ArrayList<Recipe>();
@@ -79,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements RecipeAdapter.Rec
 
     public void populateUI() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        RecipeAdapter adapter = new RecipeAdapter(mRecipeList, this);
+        RecipeListAdapter adapter = new RecipeListAdapter(mRecipeList, this);
         RecyclerView recyclerView = findViewById(R.id.rv_recipe_list);
 
         recyclerView.setLayoutManager(linearLayoutManager);
