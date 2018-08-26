@@ -3,13 +3,31 @@ package com.swapniljain.bakingapp.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Step implements Parcelable {
 
     // Private members.
+
+    @SerializedName("id")
+    @Expose
     private Integer stepId;
+
+    @SerializedName("shortDescription")
+    @Expose
     private String shortDescription;
+
+    @SerializedName("description")
+    @Expose
     private String description;
+
+    @SerializedName("videoURL")
+    @Expose
     private String videoUrl;
+
+    @SerializedName("thumbnailURL")
+    @Expose
     private String thumbnailUrl;
 
     // Setters, Getters.
@@ -91,4 +109,10 @@ public class Step implements Parcelable {
             return new Step[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return stepId + ": " + shortDescription + " -> " + description + " -> " + videoUrl + " -> "
+                + thumbnailUrl;
+    }
 }

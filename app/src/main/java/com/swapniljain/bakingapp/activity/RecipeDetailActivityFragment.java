@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class RecipeDetailActivityFragment extends Fragment implements RecipeShortDescListAdapter.RecipeShortDescClickListener{
+public class RecipeDetailActivityFragment extends Fragment {
 
     public static String RECIPE_SHORT_DESC_LIST_EXTRA = "recipe_short_desc_list_extra";
 
@@ -41,7 +42,8 @@ public class RecipeDetailActivityFragment extends Fragment implements RecipeShor
         RecyclerView recyclerView = mainView.findViewById(R.id.rv_recipe_short_desc_list);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        RecipeShortDescListAdapter adapter = new RecipeShortDescListAdapter(mRecipeShortDescList, this);
+        RecipeShortDescListAdapter adapter = new RecipeShortDescListAdapter(mRecipeShortDescList,
+                (RecipeShortDescListAdapter.RecipeShortDescClickListener)getContext());
 
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
@@ -53,11 +55,5 @@ public class RecipeDetailActivityFragment extends Fragment implements RecipeShor
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putStringArrayList(RECIPE_SHORT_DESC_LIST_EXTRA, mRecipeShortDescList);
-    }
-
-    @Override
-    public void onListItemClick(int clickedItemPosition) {
-        // Handle the click here.
-
     }
 }

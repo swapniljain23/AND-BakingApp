@@ -4,4 +4,14 @@
     <string name="title_activity_recipe_detail">RecipeDetailActivity</string>
     <string name="title_activity_ingredient">Ingredients</string>
     <string name="title_activity_step">Steps</string>
+
+    <!-- Default Ingredients -->
+    <string name="default_ingredient_name">Milk</string>
+    <string name="default_ingredient_amount">1 cup</string>
+    <string name="default_step_instruction">Salt, Sugar</string>
+
+    <!-- Button titles -->
+    <string name="previous_button_title"></string>
+    <string name="next_button_title"></string>
+
 </resources>

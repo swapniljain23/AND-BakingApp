@@ -2,6 +2,7 @@ package com.swapniljain.bakingapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +12,11 @@ import android.view.View;
 
 import com.swapniljain.bakingapp.R;
 import com.swapniljain.bakingapp.model.Recipe;
+import com.swapniljain.bakingapp.utility.RecipeShortDescListAdapter;
 
-public class RecipeDetailActivity extends AppCompatActivity {
+import java.util.ArrayList;
+
+public class RecipeDetailActivity extends AppCompatActivity implements RecipeShortDescListAdapter.RecipeShortDescClickListener {
 
     public static String RECIPE_EXTRA = "recipe_extra";
 
@@ -59,5 +63,25 @@ public class RecipeDetailActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(RECIPE_EXTRA, mRecipe);
+    }
+
+    @Override
+    public void onListItemClick(int clickedItemPosition) {
+        // Handle the click here.
+        Log.d("RecipeDetailActivityFragment","onListItemClick");
+
+        if (clickedItemPosition == 0) {
+            // Show ingredients.
+            Intent ingredientIntent = new Intent(RecipeDetailActivity.this, IngredientActivity.class);
+            ingredientIntent.putParcelableArrayListExtra(IngredientActivity.INGREDIENTS_EXTRA, (ArrayList<? extends Parcelable>) mRecipe.getRecipeIngredients());
+            startActivity(ingredientIntent);
+        } else {
+            // Show steps.
+            Intent stepIntent = new Intent(RecipeDetailActivity.this, StepActivity.class);
+            stepIntent.putParcelableArrayListExtra(StepActivity.STEPS_EXTRA, (ArrayList<? extends Parcelable>) mRecipe.getRecipeSteps());
+            stepIntent.putExtra(StepActivity.POSITION_EXTRA, clickedItemPosition - 1);
+            stepIntent.putExtra(StepActivity.RECIPE_NAME_EXTRA, mRecipe.getRecipeName());
+            startActivity(stepIntent);
+        }
     }
 }

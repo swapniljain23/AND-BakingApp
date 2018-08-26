@@ -18,7 +18,7 @@ public class Ingredient implements Parcelable {
     @Expose
     private String measure;
 
-    @SerializedName("ingredientName")
+    @SerializedName("ingredient")
     @Expose
     private String ingredientName;
 
@@ -80,5 +80,10 @@ public class Ingredient implements Parcelable {
             return new Ingredient[size];
         }
     };
+
+    @Override
+    public String toString() {
+        return ingredientName + ": " + quantity + " " + measure;
+    }
 }
 

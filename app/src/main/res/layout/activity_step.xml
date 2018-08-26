@@ -1,33 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.StepActivity">
+    android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        app:title="_TITLE_"
+        app:titleTextColor="@color/colorWhite"
+        android:background="@color/colorPrimary" >
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </android.support.v7.widget.Toolbar>
 
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_step" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fragment_step"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:layout_height="wrap_content"/>
 
-</android.support.design.widget.CoordinatorLayout>
+    <com.google.android.exoplayer2.ui.PlayerView
+        android:id="@+id/player_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:gravity="center|bottom">
+        <Button
+            android:id="@+id/previous_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/previous_button_title"
+            android:drawableLeft="@drawable/ic_arrow_previous_black_24dp"
+            android:drawableStart="@drawable/ic_arrow_previous_black_24dp"
+            android:gravity="center"
+            android:textAlignment="gravity"
+            android:layout_weight="1"
+            android:onClick="onClickPreviousButton" />
+
+        <Button
+            android:id="@+id/next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next_button_title"
+            android:textAlignment="gravity"
+            android:drawableRight="@drawable/ic_arrow_next_black_24dp"
+            android:drawableEnd="@drawable/ic_arrow_next_black_24dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:onClick="onClickNextButton" />
+
+    </LinearLayout>
+
+</LinearLayout>
