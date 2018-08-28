@@ -18,6 +18,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     final private List<Recipe> mRecipeList;
     private static RecipeClickListener mOnClickListener;
+    int[] drawableIds = {R.drawable.nutella_pie, R.drawable.brownies, R.drawable.yellow_cake, R.drawable.cheese_cake};
 
     public RecipeListAdapter(List<Recipe> recipes, RecipeClickListener onClickListener) {
         mRecipeList = recipes;
@@ -42,7 +43,10 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         Recipe recipe = mRecipeList.get(position);
         holder.recipeTextView.setText(recipe.getRecipeName());
-        //holder.recipeImageView.setImageResource(recipe.getRecipeImage());
+        if (position < drawableIds.length) {
+            holder.recipeImageView.setImageResource(drawableIds[position]);
+        }
+
     }
 
     @Override
@@ -58,7 +62,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
         ImageView recipeImageView;
         TextView recipeTextView;
-        int viewHolderPosition;
 
         public RecipeViewHolder (View itemView){
             super(itemView);

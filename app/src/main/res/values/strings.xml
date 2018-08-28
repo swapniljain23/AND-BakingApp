@@ -5,6 +5,8 @@
     <string name="title_activity_ingredient">Ingredients</string>
     <string name="title_activity_step">Steps</string>
 
+    <string name="main_activity_title">Recipe List</string>
+
     <!-- Default Ingredients -->
     <string name="default_ingredient_name">Milk</string>
     <string name="default_ingredient_amount">1 cup</string>
