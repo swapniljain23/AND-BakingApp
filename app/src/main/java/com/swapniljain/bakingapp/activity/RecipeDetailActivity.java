@@ -74,6 +74,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSho
             // Show ingredients.
             Intent ingredientIntent = new Intent(RecipeDetailActivity.this, IngredientActivity.class);
             ingredientIntent.putParcelableArrayListExtra(IngredientActivity.INGREDIENTS_EXTRA, (ArrayList<? extends Parcelable>) mRecipe.getRecipeIngredients());
+            ingredientIntent.putExtra(IngredientActivity.RECIPE_NAME_EXTRA, mRecipe.getRecipeName());
             startActivity(ingredientIntent);
         } else {
             // Show steps.

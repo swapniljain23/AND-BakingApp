@@ -19,21 +19,24 @@ import java.util.List;
 
 public class IngredientActivity extends AppCompatActivity {
 
-    public static String INGREDIENTS_EXTRA = "INGREDIENTS_EXTRA";
+    public static String INGREDIENTS_EXTRA = "ingredients_extra";
+    public static String RECIPE_NAME_EXTRA = "recipe_name_extra";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredient);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
         if (intent == null) {
             // Handle error.
             finish();
         }
+
+        toolbar.setTitle(intent.getStringExtra(RECIPE_NAME_EXTRA) + ": Ingredients");
 
         List<Ingredient> ingredients = intent.getParcelableArrayListExtra(INGREDIENTS_EXTRA);
         FragmentManager fragmentManager = getSupportFragmentManager();

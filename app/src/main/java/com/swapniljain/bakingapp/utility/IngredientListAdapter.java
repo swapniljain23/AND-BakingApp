@@ -26,7 +26,7 @@ public class IngredientListAdapter extends RecyclerView.Adapter<IngredientListAd
     @Override
     public IngredientListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        int layoutIdForIngredientListItem = R.layout.ingredient_list_item;
+        int layoutIdForIngredientListItem = R.layout.list_item_ingredient;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 

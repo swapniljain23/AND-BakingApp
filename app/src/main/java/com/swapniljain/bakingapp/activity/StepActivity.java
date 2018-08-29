@@ -1,11 +1,8 @@
 package com.swapniljain.bakingapp.activity;
 
 import android.support.v4.app.FragmentManager;
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -94,14 +91,14 @@ public class StepActivity extends AppCompatActivity {
     }
 
     public void onClickNextButton(View view) {
-        Toast.makeText(this,"Next",Toast.LENGTH_SHORT).show();
+        Log.d("onClickNextButton", "onClickNextButton");
         mCurrentPosition++;
         enableButtons();
         populateUI();
     }
 
     public void onClickPreviousButton(View view) {
-        Toast.makeText(this,"Previous",Toast.LENGTH_SHORT).show();
+        Log.d("onClickPreviousButton", "onClickPreviousButton");
         mCurrentPosition--;
         enableButtons();
         populateUI();

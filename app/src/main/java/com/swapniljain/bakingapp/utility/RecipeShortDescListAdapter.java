@@ -26,7 +26,7 @@ public class RecipeShortDescListAdapter extends RecyclerView.Adapter<RecipeShort
     @Override
     public RecipeShortDescListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        int layoutIdForRecipeItem = R.layout.recipe_short_desc_list_item;
+        int layoutIdForRecipeItem = R.layout.list_item_recipe_short_desc;
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
