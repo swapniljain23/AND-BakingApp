@@ -3,6 +3,7 @@ package com.swapniljain.bakingapp.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -50,11 +51,13 @@ public class MainActivity extends AppCompatActivity implements RecipeListAdapter
     }
 
     public void populateUI() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        Log.d("main_activity","X" + R.integer.no_of_columns);
+        GridLayoutManager layoutManager = new GridLayoutManager(this,
+                getApplicationContext().getResources().getInteger(R.integer.no_of_columns));
         RecipeListAdapter adapter = new RecipeListAdapter(mRecipeList, this);
         RecyclerView recyclerView = findViewById(R.id.rv_recipe_list);
-
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
     }
 

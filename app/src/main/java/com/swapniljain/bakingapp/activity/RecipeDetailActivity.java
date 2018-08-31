@@ -12,9 +12,11 @@ import android.view.View;
 
 import com.swapniljain.bakingapp.R;
 import com.swapniljain.bakingapp.model.Recipe;
+import com.swapniljain.bakingapp.model.Step;
 import com.swapniljain.bakingapp.utility.RecipeShortDescListAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeDetailActivity extends AppCompatActivity implements RecipeShortDescListAdapter.RecipeShortDescClickListener {
 
@@ -22,7 +24,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSho
 
     private Recipe mRecipe;
     private android.support.v4.app.FragmentManager mFragmentManager;
-    private boolean isTablet;
+    private boolean isTablet = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSho
             mRecipe = savedInstanceState.getParcelable(RECIPE_EXTRA);
         }
 
+        if (findViewById(R.id.fragment_step) != null) {
+            isTablet = true;
+        }
+
         setTitle(mRecipe.getRecipeName());
     }
 
@@ -69,20 +75,50 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSho
     public void onListItemClick(int clickedItemPosition) {
         // Handle the click here.
         Log.d("RecipeDetailActivityFragment","onListItemClick");
+        if (isTablet) {
+            if (clickedItemPosition == 0) {
+                IngredientActivityFragment ingredientsFragment = new IngredientActivityFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList(IngredientActivityFragment.INGREDIENTS_EXTRA,
+                        (ArrayList<? extends Parcelable>) mRecipe.getRecipeIngredients());
+                ingredientsFragment.setArguments(bundle);
 
-        if (clickedItemPosition == 0) {
-            // Show ingredients.
-            Intent ingredientIntent = new Intent(RecipeDetailActivity.this, IngredientActivity.class);
-            ingredientIntent.putParcelableArrayListExtra(IngredientActivity.INGREDIENTS_EXTRA, (ArrayList<? extends Parcelable>) mRecipe.getRecipeIngredients());
-            ingredientIntent.putExtra(IngredientActivity.RECIPE_NAME_EXTRA, mRecipe.getRecipeName());
-            startActivity(ingredientIntent);
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_step, ingredientsFragment)
+                        .commit();
+            } else {
+                List<Step> steps = mRecipe.getRecipeSteps();
+                int stepPosition = clickedItemPosition - 1;
+                String url0 = steps.get(stepPosition).getVideoUrl();
+                String url1 = steps.get(stepPosition).getThumbnailUrl();
+                String videoUrl = (url1.equals("")) ? url0 : url1;
+                String stepDescription = steps.get(stepPosition).getDescription();
+
+                Bundle bundle = new Bundle();
+                bundle.putString(StepActivityFragment.STEP_DESCRIPTION_EXTRA, stepDescription);
+                bundle.putString(StepActivityFragment.STEP_VIDEO_URL_EXTRA,videoUrl);
+                StepActivityFragment stepFragment = new StepActivityFragment();
+                stepFragment.setArguments(bundle);
+
+                mFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_step, stepFragment)
+                        .commit();
+            }
         } else {
-            // Show steps.
-            Intent stepIntent = new Intent(RecipeDetailActivity.this, StepActivity.class);
-            stepIntent.putParcelableArrayListExtra(StepActivity.STEPS_EXTRA, (ArrayList<? extends Parcelable>) mRecipe.getRecipeSteps());
-            stepIntent.putExtra(StepActivity.POSITION_EXTRA, clickedItemPosition - 1);
-            stepIntent.putExtra(StepActivity.RECIPE_NAME_EXTRA, mRecipe.getRecipeName());
-            startActivity(stepIntent);
+            if (clickedItemPosition == 0) {
+                // Show ingredients.
+                Intent ingredientIntent = new Intent(RecipeDetailActivity.this, IngredientActivity.class);
+                ingredientIntent.putParcelableArrayListExtra(IngredientActivity.INGREDIENTS_EXTRA, (ArrayList<? extends Parcelable>) mRecipe.getRecipeIngredients());
+                ingredientIntent.putExtra(IngredientActivity.RECIPE_NAME_EXTRA, mRecipe.getRecipeName());
+                startActivity(ingredientIntent);
+            } else {
+                // Show steps.
+                Intent stepIntent = new Intent(RecipeDetailActivity.this, StepActivity.class);
+                stepIntent.putParcelableArrayListExtra(StepActivity.STEPS_EXTRA, (ArrayList<? extends Parcelable>) mRecipe.getRecipeSteps());
+                stepIntent.putExtra(StepActivity.POSITION_EXTRA, clickedItemPosition - 1);
+                stepIntent.putExtra(StepActivity.RECIPE_NAME_EXTRA, mRecipe.getRecipeName());
+                startActivity(stepIntent);
+            }
         }
     }
 }
