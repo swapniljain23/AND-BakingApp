@@ -21,7 +21,7 @@ public class StepActivity extends AppCompatActivity {
     public static String POSITION_EXTRA = "position_extra";
     public static String RECIPE_NAME_EXTRA = "recipe_name_extra";
 
-    private Toolbar mToolBar;
+    public Toolbar mToolBar;
     private Button mPreviousButton;
     private Button mNextButton;
 
@@ -36,7 +36,6 @@ public class StepActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getSupportActionBar().hide();
         setContentView(R.layout.activity_step);
 
         mToolBar = (Toolbar) findViewById(R.id.toolbar);

@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity implements RecipeListAdapter
     }
 
     public void populateUI() {
-        Log.d("main_activity","X" + R.integer.no_of_columns);
         GridLayoutManager layoutManager = new GridLayoutManager(this,
                 getApplicationContext().getResources().getInteger(R.integer.no_of_columns));
         RecipeListAdapter adapter = new RecipeListAdapter(mRecipeList, this);

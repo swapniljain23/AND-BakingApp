@@ -3,12 +3,15 @@ package com.swapniljain.bakingapp.activity;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.TextView;
 
 import android.net.Uri;
+import android.widget.Toolbar;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
@@ -95,7 +98,12 @@ public class StepActivityFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        hideSystemUI();
+        if (getContext().getResources().getBoolean(R.bool.shouldShowFullScreen)) {
+            hideSystemUI();
+            ((StepActivity)getActivity()).mToolBar.setVisibility(View.INVISIBLE);
+        } else {
+            ((StepActivity)getActivity()).mToolBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
