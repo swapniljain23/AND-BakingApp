@@ -2,6 +2,8 @@ package com.swapniljain.bakingapp;
 
 import android.support.test.espresso.DataInteraction;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -23,6 +25,7 @@ import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -41,21 +44,24 @@ public class IngredientActivityTest {
 
     @Test
     public void ingredientActivityTest() {
-        DataInteraction linearLayout = onData(anything())
-                .inAdapterView(allOf(withId(R.id.rv_recipe_list),
-                        childAtPosition(
-                                withId(R.id.activity_recipe),
-                                0)))
-                .atPosition(0);
-        linearLayout.perform(click());
 
-        DataInteraction appCompatTextView = onData(anything())
-                .inAdapterView(allOf(withId(R.id.rv_recipe_short_desc_list),
-                        childAtPosition(
-                                withClassName(is("android.widget.LinearLayout")),
-                                0)))
-                .atPosition(0);
-        appCompatTextView.perform(click());
+        onView(ViewMatchers.withId(R.id.rv_recipe_list))
+                .perform(RecyclerViewActions.scrollToPosition(0));
+
+        onView(ViewMatchers.withId(R.id.rv_recipe_list))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+
+        onView(ViewMatchers.withId(R.id.rv_recipe_short_desc_list))
+                .perform(RecyclerViewActions.scrollToPosition(0));
+
+        onView(ViewMatchers.withId(R.id.rv_recipe_short_desc_list))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+
+        onView(ViewMatchers.withId(R.id.rv_ingredients))
+                .perform(RecyclerViewActions.scrollToPosition(0));
+
+        onView(ViewMatchers.withId(R.id.rv_ingredients))
+                .check(matches(hasDescendant(withText("Graham Cracker crumbs"))));
 
         ViewInteraction linearLayout2 = onView(
                 allOf(childAtPosition(
@@ -78,14 +84,14 @@ public class IngredientActivityTest {
         textView.check(matches(withText("unsalted butter, melted")));
 
         ViewInteraction textView2 = onView(
-                allOf(withId(R.id.tv_ingredient_amount), withText("5.000000 TBLSP"),
+                allOf(withId(R.id.tv_ingredient_amount), withText("5.0 TBLSP"),
                         childAtPosition(
                                 childAtPosition(
                                         IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
                                         0),
                                 1),
                         isDisplayed()));
-        textView2.check(matches(withText("5.000000 TBLSP")));
+        textView2.check(matches(withText("5.0 TBLSP")));
 
     }
 

@@ -2,6 +2,8 @@ package com.swapniljain.bakingapp;
 
 import android.support.test.espresso.DataInteraction;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -40,27 +42,24 @@ public class StepActivityTest {
 
     @Test
     public void stepActivityTest() {
-        DataInteraction linearLayout = onData(anything())
-                .inAdapterView(allOf(withId(R.id.rv_recipe_list),
-                        childAtPosition(
-                                withId(R.id.activity_recipe),
-                                0)))
-                .atPosition(0);
-        linearLayout.perform(click());
 
-        DataInteraction appCompatTextView = onData(anything())
-                .inAdapterView(allOf(withId(R.id.rv_recipe_short_desc_list),
-                        childAtPosition(
-                                withClassName(is("android.widget.LinearLayout")),
-                                0)))
-                .atPosition(3);
-        appCompatTextView.perform(click());
+        onView(ViewMatchers.withId(R.id.rv_recipe_list))
+                .perform(RecyclerViewActions.scrollToPosition(0));
+
+        onView(ViewMatchers.withId(R.id.rv_recipe_list))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+
+        onView(ViewMatchers.withId(R.id.rv_recipe_short_desc_list))
+                .perform(RecyclerViewActions.scrollToPosition(3));
+
+        onView(ViewMatchers.withId(R.id.rv_recipe_short_desc_list))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(3, click()));
 
         // Added a sleep statement to match the app's execution delay.
         // The recommended way to handle such scenarios is to use Espresso idling resources:
         // https://google.github.io/android-testing-support-library/docs/espresso/idling-resource/index.html
         try {
-            Thread.sleep(6595);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

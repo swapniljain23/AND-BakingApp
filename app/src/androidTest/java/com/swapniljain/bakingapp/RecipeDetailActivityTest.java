@@ -44,14 +44,6 @@ public class RecipeDetailActivityTest {
     @Test
     public void detailActivityTest() {
 
-//        DataInteraction linearLayout = onData(anything())
-//                .inAdapterView(allOf(ViewMatchers.withId(R.id.rv_recipe_short_desc_list),
-//                        childAtPosition(
-//                                withId(R.id.activity_recipe),
-//                                0)))
-//                .atPosition(0);
-//        linearLayout.perform(click());
-
         onView(ViewMatchers.withId(R.id.rv_recipe_list))
                 .perform(RecyclerViewActions.scrollToPosition(0));
 
@@ -76,49 +68,12 @@ public class RecipeDetailActivityTest {
         onView(ViewMatchers.withId(R.id.rv_recipe_short_desc_list))
                 .check(matches(hasDescendant(withText("Starting prep"))));
 
-//        ViewInteraction textView = onView(
-//                allOf(withId(android.R.id.text1), withText("Recipe Ingredients"),
-//                        childAtPosition(
-//                                allOf(withId(R.id.rv_recipe_short_desc_list),
-//                                        childAtPosition(
-//                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-//                                                0)),
-//                                0),
-//                        isDisplayed()));
-//        textView.check(matches(withText("Recipe Ingredients")));
-//
-//        ViewInteraction textView2 = onView(
-//                allOf(withId(android.R.id.text1), withText("Starting prep"),
-//                        childAtPosition(
-//                                allOf(withId(R.id.rv_recipe_short_desc_list),
-//                                        childAtPosition(
-//                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-//                                                0)),
-//                                2),
-//                        isDisplayed()));
-//        textView2.check(matches(withText("Starting prep")));
-//
-//        ViewInteraction textView3 = onView(
-//                allOf(withId(android.R.id.text1), withText("Prep the cookie crust."),
-//                        childAtPosition(
-//                                allOf(withId(R.id.rv_recipe_short_desc_list),
-//                                        childAtPosition(
-//                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-//                                                0)),
-//                                3),
-//                        isDisplayed()));
-//        textView3.check(matches(withText("Prep the cookie crust.")));
-//
-//        ViewInteraction textView4 = onView(
-//                allOf(withId(android.R.id.text1), withText("Finishing Steps"),
-//                        childAtPosition(
-//                                allOf(withId(R.id.rv_recipe_short_desc_list),
-//                                        childAtPosition(
-//                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-//                                                0)),
-//                                7),
-//                        isDisplayed()));
-//        textView4.check(matches(withText("Finishing Steps")));
+        onView(ViewMatchers.withId(R.id.rv_recipe_short_desc_list))
+                .perform(RecyclerViewActions.scrollToPosition(7));
+
+        onView(ViewMatchers.withId(R.id.rv_recipe_short_desc_list))
+                .check(matches(hasDescendant(withText("Finishing Steps"))));
+
 
     }
 

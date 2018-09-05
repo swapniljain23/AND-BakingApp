@@ -13,7 +13,7 @@
     <string name="default_step_instruction">Salt, Sugar</string>
 
     <!-- Button titles -->
-    <string name="previous_button_title"></string>
-    <string name="next_button_title"></string>
+    <string name="previous_button_title">Previous</string>
+    <string name="next_button_title">Next</string>
 
 </resources>
