@@ -2,6 +2,8 @@ package com.swapniljain.bakingapp;
 
 import android.support.test.espresso.DataInteraction;
 import android.support.test.espresso.ViewInteraction;
+import android.support.test.espresso.contrib.RecyclerViewActions;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -22,7 +24,9 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onData;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -39,57 +43,82 @@ public class RecipeDetailActivityTest {
 
     @Test
     public void detailActivityTest() {
-        DataInteraction linearLayout = onData(anything())
-                .inAdapterView(allOf(withId(R.id.rv_recipe_short_desc_list),
-                        childAtPosition(
-                                withId(R.id.activity_recipe),
-                                0)))
-                .atPosition(0);
-        linearLayout.perform(click());
 
-        ViewInteraction textView = onView(
-                allOf(withId(android.R.id.text1), withText("Recipe Ingredients"),
-                        childAtPosition(
-                                allOf(withId(R.id.rv_recipe_short_desc_list),
-                                        childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                                0)),
-                                0),
-                        isDisplayed()));
-        textView.check(matches(withText("Recipe Ingredients")));
+//        DataInteraction linearLayout = onData(anything())
+//                .inAdapterView(allOf(ViewMatchers.withId(R.id.rv_recipe_short_desc_list),
+//                        childAtPosition(
+//                                withId(R.id.activity_recipe),
+//                                0)))
+//                .atPosition(0);
+//        linearLayout.perform(click());
 
-        ViewInteraction textView2 = onView(
-                allOf(withId(android.R.id.text1), withText("Starting prep"),
-                        childAtPosition(
-                                allOf(withId(R.id.rv_recipe_short_desc_list),
-                                        childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                                0)),
-                                2),
-                        isDisplayed()));
-        textView2.check(matches(withText("Starting prep")));
+        onView(ViewMatchers.withId(R.id.rv_recipe_list))
+                .perform(RecyclerViewActions.scrollToPosition(0));
 
-        ViewInteraction textView3 = onView(
-                allOf(withId(android.R.id.text1), withText("Prep the cookie crust."),
-                        childAtPosition(
-                                allOf(withId(R.id.rv_recipe_short_desc_list),
-                                        childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                                0)),
-                                3),
-                        isDisplayed()));
-        textView3.check(matches(withText("Prep the cookie crust.")));
+        onView(ViewMatchers.withId(R.id.rv_recipe_list))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
 
-        ViewInteraction textView4 = onView(
-                allOf(withId(android.R.id.text1), withText("Finishing Steps"),
-                        childAtPosition(
-                                allOf(withId(R.id.rv_recipe_short_desc_list),
-                                        childAtPosition(
-                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
-                                                0)),
-                                7),
-                        isDisplayed()));
-        textView4.check(matches(withText("Finishing Steps")));
+        onView(ViewMatchers.withId(R.id.rv_recipe_short_desc_list))
+                .perform(RecyclerViewActions.scrollToPosition(0));
+
+        onView(ViewMatchers.withId(R.id.rv_recipe_short_desc_list))
+                .check(matches(hasDescendant(withText("Recipe Ingredients"))));
+
+        onView(ViewMatchers.withId(R.id.rv_recipe_short_desc_list))
+                .perform(RecyclerViewActions.scrollToPosition(1));
+
+        onView(ViewMatchers.withId(R.id.rv_recipe_short_desc_list))
+                .check(matches(hasDescendant(withText("Recipe Introduction"))));
+
+        onView(ViewMatchers.withId(R.id.rv_recipe_short_desc_list))
+                .perform(RecyclerViewActions.scrollToPosition(2));
+
+        onView(ViewMatchers.withId(R.id.rv_recipe_short_desc_list))
+                .check(matches(hasDescendant(withText("Starting prep"))));
+
+//        ViewInteraction textView = onView(
+//                allOf(withId(android.R.id.text1), withText("Recipe Ingredients"),
+//                        childAtPosition(
+//                                allOf(withId(R.id.rv_recipe_short_desc_list),
+//                                        childAtPosition(
+//                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
+//                                                0)),
+//                                0),
+//                        isDisplayed()));
+//        textView.check(matches(withText("Recipe Ingredients")));
+//
+//        ViewInteraction textView2 = onView(
+//                allOf(withId(android.R.id.text1), withText("Starting prep"),
+//                        childAtPosition(
+//                                allOf(withId(R.id.rv_recipe_short_desc_list),
+//                                        childAtPosition(
+//                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
+//                                                0)),
+//                                2),
+//                        isDisplayed()));
+//        textView2.check(matches(withText("Starting prep")));
+//
+//        ViewInteraction textView3 = onView(
+//                allOf(withId(android.R.id.text1), withText("Prep the cookie crust."),
+//                        childAtPosition(
+//                                allOf(withId(R.id.rv_recipe_short_desc_list),
+//                                        childAtPosition(
+//                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
+//                                                0)),
+//                                3),
+//                        isDisplayed()));
+//        textView3.check(matches(withText("Prep the cookie crust.")));
+//
+//        ViewInteraction textView4 = onView(
+//                allOf(withId(android.R.id.text1), withText("Finishing Steps"),
+//                        childAtPosition(
+//                                allOf(withId(R.id.rv_recipe_short_desc_list),
+//                                        childAtPosition(
+//                                                IsInstanceOf.<View>instanceOf(android.widget.LinearLayout.class),
+//                                                0)),
+//                                7),
+//                        isDisplayed()));
+//        textView4.check(matches(withText("Finishing Steps")));
 
     }
 
