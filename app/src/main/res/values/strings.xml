@@ -16,4 +16,9 @@
     <string name="previous_button_title">Previous</string>
     <string name="next_button_title">Next</string>
 
+    <!--widget-->
+    <string name="widget_recipe_name">Recipe Name</string>
+    <string name="empty_text">Ingredients Unavailable</string>
+    <string name="ingredient_amount">%f %s</string>
+
 </resources>

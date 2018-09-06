@@ -54,7 +54,8 @@ public class StepActivityFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_step,container, false);
 
@@ -100,9 +101,6 @@ public class StepActivityFragment extends Fragment {
         super.onResume();
         if (getContext().getResources().getBoolean(R.bool.shouldShowFullScreen)) {
             hideSystemUI();
-            ((StepActivity)getActivity()).mToolBar.setVisibility(View.INVISIBLE);
-        } else {
-            ((StepActivity)getActivity()).mToolBar.setVisibility(View.VISIBLE);
         }
     }
 
@@ -118,12 +116,17 @@ public class StepActivityFragment extends Fragment {
         mPlaybackPosition = mExoPlayer.getCurrentPosition();
         mCurrentWindow = mExoPlayer.getCurrentWindowIndex();
         mPlayWhenReady = mExoPlayer.getPlayWhenReady();
+//        if (Util.SDK_INT <= 23) {
+//            releasePlayer();
+//        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        releasePlayer();
+//        if (Util.SDK_INT > 23) {
+//            releasePlayer();
+//        }
     }
 
     @Override
