@@ -1,5 +1,6 @@
 package com.swapniljain.bakingapp.activity;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,6 +20,7 @@ import com.swapniljain.bakingapp.model.Recipe;
 import com.swapniljain.bakingapp.network.RecipeClient;
 import com.swapniljain.bakingapp.network.RetrofitClient;
 import com.swapniljain.bakingapp.utility.RecipeListAdapter;
+import com.swapniljain.bakingapp.widget.WidgetDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements RecipeListAdapter
     }
 
     public void requestRecipes() {
+        Log.d("MainActivity","requestRecipes called.");
         RecipeClient client = new RetrofitClient().getClient().create(RecipeClient.class);
         Call<List<Recipe>> call = client.getRecipes();
         call.enqueue(new Callback<List<Recipe>>() {
@@ -85,11 +88,16 @@ public class MainActivity extends AppCompatActivity implements RecipeListAdapter
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
                 mRecipeList = response.body();
                 Log.d("RECIPE","RecipeList: " + mRecipeList.toString());
+                if (mRecipeList.size() > 0) {
+                    WidgetDataModel.saveRecipe(MainActivity.this, mRecipeList.get(0));
+                    // notify widget about data change
+                }
                 populateUI();
             }
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
                 // Handle failure here.
+                Log.d("MainActivity", "requestRecipes Failed");
             }
         });
     }

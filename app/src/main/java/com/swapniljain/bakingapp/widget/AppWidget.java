@@ -3,8 +3,11 @@ package com.swapniljain.bakingapp.widget;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.swapniljain.bakingapp.R;
@@ -12,6 +15,8 @@ import com.swapniljain.bakingapp.activity.RecipeDetailActivity;
 import com.swapniljain.bakingapp.model.Recipe;
 
 public class AppWidget extends AppWidgetProvider {
+
+    private static final String TAG = "AppWidget";
 
     static void updateAppWidget(Context context,
                                 AppWidgetManager appWidgetManager,
@@ -50,8 +55,11 @@ public class AppWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        Recipe recipe = WidgetDataModel.getRecipe(context);
         // There may be multiple widgets active, so update all of them
-        WidgetIntentService.startActionUpdateListView(context,null);
+        Log.d(TAG, "Recipe: " + recipe);
+        //WidgetIntentService.startActionUpdateListView(context,recipe);
+        updateWidget(context, recipe);
     }
 
     public static void updateAppWidgets (Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
@@ -68,6 +76,19 @@ public class AppWidget extends AppWidgetProvider {
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
+    }
+
+
+    private void updateWidget(Context context, Recipe recipe) {
+        if (recipe != null) {
+            WidgetDataModel.saveRecipe(context, recipe);
+        }
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
+                new ComponentName(context, AppWidget.class));
+
+        AppWidget.updateAppWidgets(context, appWidgetManager,appWidgetIds);
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.ingredients_list);
     }
 
 }

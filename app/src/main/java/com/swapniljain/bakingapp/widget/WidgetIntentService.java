@@ -25,7 +25,9 @@ public class WidgetIntentService extends IntentService {
             final String action = intent.getAction();
             if (ACTION_UPDATE_LIST_VIEW.equals(action)){
                 Recipe recipe = intent.getParcelableExtra(RECIPE_KEY);
-                handleActionUpdateListView(recipe);
+                if (recipe != null) {
+                    handleActionUpdateListView(recipe);
+                }
             }
         }
     }
